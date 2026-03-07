@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Scanner;
-import java.util.ArrayList;
 import java.io.FileWriter;
 
 public class Main{
@@ -30,7 +29,7 @@ public class Main{
 		dataRead.nextLine();
 		String currentLine;
 		String[] rowData = new String[5];
-		ArrayList<HurricaneRowData> base = new ArrayList<HurricaneRowData>();
+		DoublyLinkedSortedList base = new DoublyLinkedSortedList();
 		
 		// Adds each line of the csv file to a temporary variable, which is then added to an ArrayList.
 		while(dataRead.hasNextLine()){
@@ -43,7 +42,7 @@ public class Main{
 			temp.setStormsTotal(Integer.parseInt(rowData[2]));
 			temp.setHurricanesTotal(Integer.parseInt(rowData[3]));
 			temp.setHurricanesMajor(Integer.parseInt(rowData[4]));
-			base.add(temp);
+			base.insert(temp);
 		}
 		
 		int maxYear = findYear(base);
