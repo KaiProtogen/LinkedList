@@ -15,7 +15,7 @@ public class Node{
 		this.value = value;
 	}
 	
-	public void getValue(){
+	public HurricaneRowData getValue(){
 		return value;
 	}
 	
@@ -24,7 +24,7 @@ public class Node{
 		else{return false;}
 	}
 	
-	public void getNext(){
+	public Node getNext(){
 		return next;
 	}
 	
@@ -37,7 +37,7 @@ public class Node{
 		else{return false;}
 	}
 	
-	public void getPrevious(){
+	public Node getPrevious(){
 		return previous;
 	}
 	
@@ -46,6 +46,6 @@ public class Node{
 	}
 	
 	public String toString(){
-		
+		return String.format("%10d%11d%11d%11d%11d", value.getYear(), value.getACE(), value.getStormsTotal(), value.getHurricanesTotal(), value.getHurricanesMajor());
 	}
 }

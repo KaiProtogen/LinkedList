@@ -45,38 +45,18 @@ public class Main{
 			base.insert(temp);
 		}
 		
-		int maxYear = findYear(base);
-		int maxACE = findACE(base, maxYear);
+		Node maxYearNode = base.getFirst();
+		HurricaneRowData dat = maxYearNode.getValue();
+		int maxYear = dat.getYear();
 		
-		System.out.printf("The maximal ACE was %d in %d", maxACE, maxYear);
-		String output = String.format("The maximal ACE was %d in %d", maxACE, maxYear);
-		fileOutput.write(output);
+		String header1 = String.format("Year of max ace: %d", maxYear);
+		String header2 = String.format("All data in order of ACE:");
+		System.out.printf("%s\n%s\n", header1, header2);
+		System.out.println(base);
+		fileOutput.write(String.format("%s\n%s\n", header1, header2));
+		fileOutput.write(base.toString());
 		
 		fileOutput.close();
 		dataRead.close();
-	}
-	
-	public static int findYear(ArrayList<HurricaneRowData> base){
-		int maxACE = 0;
-		int yearResult = 0;
-		// Searches each row of the ArrayList and compares to find the highest ACE in the full array.
-		// When the highest ACE is found, it returns the year from the same row as the max ACE.
-		for (HurricaneRowData currentRow : base){
-			if (currentRow.getACE() > maxACE){
-				maxACE = currentRow.getACE();
-				yearResult = currentRow.getYear();
-			}
-		}
-		return yearResult;
-	}
-	
-	public static int findACE(ArrayList<HurricaneRowData> base, int year){
-		// Compares the years to find and return the max ACE.
-		for (HurricaneRowData currentRow : base){
-			if (currentRow.getYear() == year){
-				return currentRow.getACE();
-			}
-		}
-		return 0;
 	}
 }

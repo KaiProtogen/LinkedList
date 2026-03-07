@@ -5,13 +5,13 @@ public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface{
 	
 	//Return a reference to the first Node in the list
 	public Node getFirst(){
-		while(current.next != null)current = current.next;
+		while(current.getNext() != null)current = current.getNext();
 		return current;
 	}
 	
 	//Return a reference to the last Node in the list
 	public Node getLast(){
-		while(current.prev != null)current = current.prev;
+		while(current.getPrevious() != null)current = current.getPrevious();
 		return current;
 	}
 	
@@ -19,21 +19,20 @@ public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface{
 	public Node remove(HurricaneRowData toRemove){
 		current = head;
 		while(true){
-			if(current.value == toRemove){
+			if(current.getValue() == toRemove){
 				Node removeStorage = current;
-				current.next.prev = current.prev;
-				current.prev.next = current.next;
-				current = current.prev;
+				current.getNext().setPrevious(current.getPrevious());
+				current.getPrevious().setNext(current.getNext());
+				current = current.getPrevious();
 				return removeStorage;
 			}
-			if(current.prev == null)return null;
-			current = current.prev;
+			if(current.getPrevious() == null)return null;
+			current = current.getPrevious();
 		}
 	}
 	
-	//Insert a new Node with the given newValue into the list in order.
+	//Insert a new Node with the given newgetValue() into the list in order.
 	public void insert(HurricaneRowData newValue){
-		Node storage = null;
 		Node newNode = new Node(newValue);
 		
 		if(current == null){
@@ -41,48 +40,98 @@ public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface{
 			return;
 		}
 		
-		while(current.value.getACE() > newNode.value.getACE()){
-			if(current.prev == null){
-				current.prev = newNode;
-				newNode.next = current;
-				tail = newNode;
+		while(current.getValue().getACE() >= newNode.getValue().getACE()){
+			if(current.getPrevious() == null){
+				current.setPrevious(newNode);
+				newNode.setNext(current);
 				return;
 			}
 			
-			if(current.value.getACE() > newNode.value.getACE() && newNode.value.getACE() > current.prev.value.getACE()){
-				storage = current.prev;
-				current.prev = newNode;
-				newNode.next = current;
-				current = storage;
-				current.next = newNode;
-				newNode.prev = current;
+			if(current.getValue().getACE() == newNode.getValue().getACE()){
+				if(current.getValue().getStormsTotal() > newNode.getValue().getStormsTotal()){
+					System.out.println("total storms current: " + current.getValue().getStormsTotal());
+					System.out.println("total storms new: " + newNode.getValue().getStormsTotal());
+					System.out.println("pull");
+					pullNode(newNode);
+					return;
+				}
+				else{
+					System.out.println("total storms current: " + current.getValue().getStormsTotal());
+					System.out.println("total storms new: " + newNode.getValue().getStormsTotal());
+					System.out.println("push");
+					pushNode(newNode);
+					return;
+				}
+			}
+			
+			if(current.getValue().getACE() > newNode.getValue().getACE() && newNode.getValue().getACE() > current.getPrevious().getValue().getACE()){
+				pullNode(newNode);
 				return;
 			}
-			current = current.prev;
+			current = current.getPrevious();
 		}
-		while(current.value.getACE() < newNode.value.getACE()){
-			if(current.next == null){
-				current.next = newNode;
-				newNode.prev = current;
+		
+		while(current.getValue().getACE() <= newNode.getValue().getACE()){
+			if(current.getNext() == null){
+				current.setNext(newNode);
+				newNode.setPrevious(current);
 				head = newNode;
 				return;
 			}
 			
-			if(current.value.getACE() < newNode.value.getACE() && newNode.value.getACE() < current.next.value.getACE()){
-				storage = current.next;
-				current.next = newNode;
-				newNode.prev = current;
-				current = storage;
-				current.prev = newNode;
-				newNode.next = current;
+			if(current.getValue().getACE() == newNode.getValue().getACE()){
+				if(current.getValue().getStormsTotal() > newNode.getValue().getStormsTotal()){
+					pullNode(newNode);
+					return;
+				}
+				else{
+					pushNode(newNode);
+					return;
+				}
+			}
+			
+			if(current.getValue().getACE() < newNode.getValue().getACE() && newNode.getValue().getACE() < current.getNext().getValue().getACE()){
+				pushNode(newNode);
 				return;
 			}
-			current = current.next;
+			current = current.getNext();
 		}
 	}
 	
 	//Return the entire list as a multi-line String
 	public String toString(){
-		
+		current = head;
+		String fullList = "";
+		while(true){
+			if(current.getPrevious() != null){
+				fullList += current + "\n";
+				current = current.getPrevious();
+			}
+			else{
+				fullList += current;
+				break;
+			}
+		}
+		return fullList;
+	}
+	
+	private void pushNode(Node newNode){
+		Node storage = null;
+		storage = current.getNext();
+		current.setNext(newNode);
+		newNode.setPrevious(current);
+		current = storage;
+		current.setPrevious(newNode);
+		newNode.setNext(current);
+	}
+	
+	private void pullNode(Node newNode){
+		Node storage = null;
+		storage = current.getPrevious();
+		current.setPrevious(newNode);
+		newNode.setNext(current);
+		current = storage;
+		current.setNext(newNode);
+		newNode.setPrevious(current);
 	}
 }
