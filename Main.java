@@ -31,7 +31,7 @@ public class Main{
 		String[] rowData = new String[5];
 		DoublyLinkedSortedList base = new DoublyLinkedSortedList();
 		
-		// Adds each line of the csv file to a temporary variable, which is then added to an ArrayList.
+		// Adds each line of the csv file to a temporary variable, which is then inserted into a node.
 		while(dataRead.hasNextLine()){
 			currentLine = dataRead.nextLine();
 			rowData = currentLine.split(",");
