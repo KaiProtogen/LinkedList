@@ -65,4 +65,17 @@ public class HurricaneRowData{
 	public void setHurricanesMajor(int hurricanesMajor){
 		this.hurricanesMajor = hurricanesMajor;
 	}
+	
+	@Override
+	public boolean equals(Object o){
+		if(o == null)return false;
+		
+		if(o == this)return true;
+		
+		if(o.getClass() != this.getClass())return false;
+		
+		HurricaneRowData p = (HurricaneRowData)o;
+		if(p.getYear() == this.year && p.getACE() == this.ace && p.getStormsTotal() == this.stormsTotal && p.getHurricanesTotal() == this.hurricanesTotal && p.getHurricanesMajor() == this.hurricanesMajor)return true;
+		else{return false;}
+	}
 }

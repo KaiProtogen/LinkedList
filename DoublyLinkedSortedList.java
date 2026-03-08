@@ -103,7 +103,6 @@ public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface{
 		}
 	}
 	
-	// 
 	public String toString(){
 		current = head;
 		String fullList = "";
@@ -118,6 +117,23 @@ public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface{
 			}
 		}
 		return fullList;
+	}
+	
+	// Uses getByValue to see if the value is found in the list.
+	// Returns true or false depending on whether or not it's in the list.
+	public boolean contains(HurricaneRowData value){
+		return getByValue(value) != null;
+	}
+	
+	// Searches through the list looking for a node with the same value as the input.
+	// Returns null if it doesn't find a node with the value, otherwise it returns the node.
+	public Node getByValue(HurricaneRowData value){
+		current = head;
+		while(current.getValue() != value && current != null){
+			current = current.getPrevious();
+		}
+		if(current == null)return null;
+		else{return current;}
 	}
 	
 	// The next node from current is stored and replaced with newNode.
