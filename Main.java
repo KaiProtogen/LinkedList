@@ -45,6 +45,7 @@ public class Main{
 			base.insert(temp);
 		}
 		
+		System.out.println("List Length: " + base.length());
 		Node maxYearNode = base.getFirst();
 		HurricaneRowData dat = maxYearNode.getValue();
 		int maxYear = dat.getYear();
@@ -59,4 +60,35 @@ public class Main{
 		fileOutput.close();
 		dataRead.close();
 	}
+	
+	/*
+	// Tests removing an item and seeing if the contains method returns false for the item.
+	// Also inserts another item afterwards and tests for the length, if another item is included, and if the value of a third item is correct.
+	public static boolean testingOne(){
+		DoublyLinkedSortedList baseTest = new DoublyLinkedSortedList();
+		baseTest.insert(new HurricaneRowData(2017, 225, 17, 10, 6));
+		baseTest.insert(new HurricaneRowData(2018, 133, 15, 8, 2));
+		baseTest.insert(new HurricaneRowData(2019, 132, 18, 6, 3));
+		baseTest.insert(new HurricaneRowData(2020, 180, 30, 14, 7));
+		
+		if(baseTest.length() == 4){
+			baseTest.remove(new HurricaneRowData(2020, 180, 30, 14, 7));
+			baseTest.contains(new HurricaneRowData(2020, 180, 30, 14, 7));
+			baseTest.insert(new HurricaneRowData(2021, 146, 21, 7, 4));
+			return baseTest.length() == 4 && baseTest.contains(new HurricaneRowData(2019, 132, 18, 6, 3)) && baseTest.getByValue(new HurricaneRowData(2018, 133, 15, 8, 2)).getValue().equals(new HurricaneRowData(2018, 133, 15, 8, 2));
+		}
+		return false;
+	}
+	
+	// Tests if the last item in the list is 2019 (with the lowest ACE value).
+	public static boolean testingTwo(){
+		DoublyLinkedSortedList baseTestTwo = new DoublyLinkedSortedList();
+		baseTestTwo.insert(new HurricaneRowData(2017, 225, 17, 10, 6));
+		baseTestTwo.insert(new HurricaneRowData(2018, 133, 15, 8, 2));
+		baseTestTwo.insert(new HurricaneRowData(2019, 132, 18, 6, 3));
+		baseTestTwo.insert(new HurricaneRowData(2020, 180, 30, 14, 7));
+		
+		return baseTestTwo.getLast().getValue().equals(new HurricaneRowData(2019, 132, 18, 6, 3));
+	}
+	*/
 }

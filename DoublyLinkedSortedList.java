@@ -21,7 +21,7 @@ public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface{
 	public Node remove(HurricaneRowData toRemove){
 		current = head;
 		while(true){
-			if(current.getValue() == toRemove){
+			if(current.getValue().equals(toRemove)){
 				Node removeStorage = current;
 				current.getNext().setPrevious(current.getPrevious());
 				current.getPrevious().setNext(current.getNext());
@@ -40,6 +40,7 @@ public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface{
 		// Makes the current node the one being inserted if the list is empty.
 		if(current == null){
 			current = newNode;
+			head = current;
 			return;
 		}
 		
@@ -129,11 +130,23 @@ public class DoublyLinkedSortedList implements DoublyLinkedSortedListInterface{
 	// Returns null if it doesn't find a node with the value, otherwise it returns the node.
 	public Node getByValue(HurricaneRowData value){
 		current = head;
-		while(current.getValue() != value && current != null){
+		while(current != null){
+			if (current.getValue().equals(value)) return current;
 			current = current.getPrevious();
 		}
-		if(current == null)return null;
-		else{return current;}
+		current = head;
+		return null;
+	}
+	
+	public int length(){
+		int length = 0;
+		current = head;
+		while(current != null){
+			length += 1;
+			current = current.getPrevious();
+		}
+		current = head;
+		return length;
 	}
 	
 	// The next node from current is stored and replaced with newNode.
